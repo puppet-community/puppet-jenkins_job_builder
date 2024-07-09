@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper_acceptance'
-include Beaker::HostPrebuiltSteps
 
 describe 'jenkins_job_builder class' do
   context 'with a defined job' do
@@ -22,22 +21,22 @@ describe 'jenkins_job_builder class' do
 
     # TODO: test ini file
 
-    yaml_content = <<-'YAML'
----
-  - job:
-       description: "This a test job"
-       name: "test"
-       project-type: "freestyle"
-       scm:
-        - git:
-           branches:
-             - "*/master"
-           builders:
-            - shell: "#!/bin/bash -l\necho \"test\"\n"
-           triggers:
-            - pollscm: "*/1 * * * *"
-           url: "git@github.com:opentable/puppet-jenkins_job_builder"
-YAML
+    yaml_content = <<~'YAML'
+      ---
+        - job:
+             description: "This a test job"
+             name: "test"
+             project-type: "freestyle"
+             scm:
+              - git:
+                 branches:
+                   - "*/master"
+                 builders:
+                  - shell: "#!/bin/bash -l\necho \"test\"\n"
+                 triggers:
+                  - pollscm: "*/1 * * * *"
+                 url: "git@github.com:opentable/puppet-jenkins_job_builder"
+    YAML
 
     describe file('/tmp/jenkins-test.yaml') do
       it { is_expected.to be_file }

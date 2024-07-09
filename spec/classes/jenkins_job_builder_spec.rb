@@ -11,13 +11,13 @@ describe 'jenkins_job_builder' do
       let(:expected_packages) do
         case os_facts[:os]['family']
         when 'Debian'
-          ['python', 'python-pip', 'python-yaml']
+          %w[python python-pip python-yaml]
         when 'RedHat'
           case os_facts[:os]['release']['major']
           when '6'
-            ['python', 'python-pip', 'PyYAML', 'python-argparse']
+            %w[python python-pip PyYAML python-argparse]
           when '7'
-            ['python', 'python2-pip', 'PyYAML']
+            %w[python python2-pip PyYAML]
           else
             []
           end
